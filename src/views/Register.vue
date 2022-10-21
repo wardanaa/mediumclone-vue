@@ -10,7 +10,7 @@
             </router-link>
           </p>
           VALIDATION ERRORS
-          <form>
+          <form @submit.prevent="onSubmit">
             <fieldset class="form-group">
               <input
                 class="form-control form-control-lg"
@@ -32,12 +32,13 @@
                 placeholder="Password"
               />
             </fieldset>
-            <button class="btn btn-lg btn-primary pull-xs-right">
+            <button
+              class="btn btn-lg btn-primary pull-xs-right"
+              :disabled="isSubmitting"
+            >
               Sign Up
             </button>
-            {{ count }}
           </form>
-          <button @click="increaseCounter">Increase</button>
         </div>
       </div>
     </div>
@@ -48,15 +49,13 @@
 export default {
   name: 'McvRegister',
   computed: {
-    count() {
-      console.log('store', this.$store)
-      return this.$store.state.count
+    isSubmitting() {
+      return this.$store.state.auth.isSubmitting
     }
   },
   methods: {
-    increaseCounter() {
-      console.log('increaseCounter')
-      this.$store.commit('increment')
+    onSubmit() {
+      this.$store.commit('registerStart')
     }
   }
 }
