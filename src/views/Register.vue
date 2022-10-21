@@ -35,7 +35,9 @@
             <button class="btn btn-lg btn-primary pull-xs-right">
               Sign Up
             </button>
+            {{ count }}
           </form>
+          <button @click="increaseCounter">Increase</button>
         </div>
       </div>
     </div>
@@ -44,6 +46,18 @@
 
 <script>
 export default {
-  name: 'McvRegister'
+  name: 'McvRegister',
+  computed: {
+    count() {
+      console.log('store', this.$store)
+      return this.$store.state.count
+    }
+  },
+  methods: {
+    increaseCounter() {
+      console.log('increaseCounter')
+      this.$store.commit('increment')
+    }
+  }
 }
 </script>
